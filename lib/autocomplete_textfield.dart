@@ -33,6 +33,7 @@ class AutoCompleteTextField<T> extends StatefulWidget {
   final TextCapitalization textCapitalization;
   final TextEditingController controller;
   final FocusNode focusNode;
+  final EdgeInsets scrollPadding;
 
   AutoCompleteTextField(
       {@required
@@ -63,7 +64,8 @@ class AutoCompleteTextField<T> extends StatefulWidget {
       this.textCapitalization: TextCapitalization.sentences,
       this.minLength = 1,
       this.controller,
-      this.focusNode})
+      this.focusNode,
+      this.scrollPadding})
       : super(key: key);
 
   void clear() => key.currentState.clear();
@@ -112,7 +114,8 @@ class AutoCompleteTextField<T> extends StatefulWidget {
       keyboardType,
       textInputAction,
       controller,
-      focusNode);
+      focusNode,
+      scrollPadding);
 }
 
 class AutoCompleteTextFieldState<T> extends State<AutoCompleteTextField> {
@@ -133,7 +136,7 @@ class AutoCompleteTextFieldState<T> extends State<AutoCompleteTextField> {
   bool submitOnSuggestionTap, clearOnSubmit;
   TextEditingController controller;
   FocusNode focusNode;
-
+  EdgeInsets scrollPadding;
   String currentText = "";
 
   InputDecoration decoration;
@@ -163,7 +166,8 @@ class AutoCompleteTextFieldState<T> extends State<AutoCompleteTextField> {
       this.keyboardType,
       this.textInputAction,
       this.controller,
-      this.focusNode) {
+      this.focusNode,
+      this.scrollPadding) {
     textField = new TextField(
       inputFormatters: inputFormatters,
       textCapitalization: textCapitalization,
@@ -186,6 +190,7 @@ class AutoCompleteTextFieldState<T> extends State<AutoCompleteTextField> {
       },
       onSubmitted: (submittedText) =>
           triggerSubmitted(submittedText: submittedText),
+      scrollPadding: scrollPadding,  
     );
 
     if (this.controller != null && this.controller.text != null) {
@@ -448,5 +453,6 @@ class SimpleAutoCompleteTextField extends AutoCompleteTextField<String> {
           keyboardType,
           textInputAction,
           controller,
-          focusNode);
+          focusNode,
+          scrollPadding);
 }
