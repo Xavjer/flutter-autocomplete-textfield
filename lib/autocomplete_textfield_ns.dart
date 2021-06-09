@@ -33,7 +33,8 @@ class AutoCompleteTextField<T> extends StatefulWidget {
   final TextCapitalization textCapitalization;
   final TextEditingController? controller;
   final FocusNode? focusNode;
-
+  final EdgeInsets scrollPadding;
+    
   AutoCompleteTextField(
       {required this.itemSubmitted, //Callback on item selected, this is the item selected of type <T>
       required this.key, //GlobalKey used to enable addSuggestion etc
@@ -57,7 +58,8 @@ class AutoCompleteTextField<T> extends StatefulWidget {
       this.textCapitalization: TextCapitalization.sentences,
       this.minLength = 1,
       this.controller,
-      this.focusNode})
+      this.focusNode,
+      this.scrollPadding})
       : super(key: key);
 
   void clear() => key.currentState!.clear();
@@ -106,7 +108,8 @@ class AutoCompleteTextField<T> extends StatefulWidget {
       keyboardType,
       textInputAction,
       controller,
-      focusNode);
+      focusNode,
+      scrollPadding);
 }
 
 class AutoCompleteTextFieldState<T> extends State<AutoCompleteTextField> {
@@ -127,6 +130,7 @@ class AutoCompleteTextFieldState<T> extends State<AutoCompleteTextField> {
   bool submitOnSuggestionTap, clearOnSubmit;
   TextEditingController? controller;
   FocusNode? focusNode;
+  EdgeInsets scrollPadding;
 
   String currentText = "";
 
@@ -157,7 +161,8 @@ class AutoCompleteTextFieldState<T> extends State<AutoCompleteTextField> {
       this.keyboardType,
       this.textInputAction,
       this.controller,
-      this.focusNode) {
+      this.focusNode,
+      this.scrollPadding) {
     textField = new TextField(
       inputFormatters: inputFormatters,
       textCapitalization: textCapitalization,
@@ -254,6 +259,7 @@ class AutoCompleteTextFieldState<T> extends State<AutoCompleteTextField> {
         },
         onSubmitted: (submittedText) =>
             triggerSubmitted(submittedText: submittedText),
+        scrollPadding: scrollPadding,  
       );
     });
   }
@@ -442,5 +448,6 @@ class SimpleAutoCompleteTextField extends AutoCompleteTextField<String> {
           keyboardType,
           textInputAction,
           controller,
-          focusNode);
+          focusNode,
+          scrollPadding);
 }
