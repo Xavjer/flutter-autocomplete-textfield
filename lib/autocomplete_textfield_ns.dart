@@ -59,7 +59,7 @@ class AutoCompleteTextField<T> extends StatefulWidget {
       this.minLength = 1,
       this.controller,
       this.focusNode,
-      this.scrollPadding})
+      this.scrollPadding = const EdgeInsets.all(20.0)})
       : super(key: key);
 
   void clear() => key.currentState!.clear();
